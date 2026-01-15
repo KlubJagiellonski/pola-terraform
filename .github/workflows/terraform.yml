@@ -11,7 +11,6 @@ on:
 
 env:
   TF_VERSION: "1.14.0"
-  GCP_PROJECT_ID: "723682062592"
   WORKLOAD_IDENTITY_POOL: "github-actions-pool"
   WORKLOAD_IDENTITY_PROVIDER: "github-actions-provider"
 
@@ -27,25 +26,31 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        stack:
-          - stacks/org
-          - stacks/projects/kj-pola-web-stg
-          - stacks/projects/kj-pola-web-prod
-          - stacks/projects/kj-pola-backend-stg
-          - stacks/projects/kj-pola-backend-prod
-          - stacks/projects/kj-pola-shared-prod
-          - stacks/projects/pola-analytics-prod
-          - stacks/projects/pola-bi-looker
+        include:
+          - stack: stacks/projects/kj-pola-web-stg
+            gcp_project_id: kj-pola-web-stg
+          - stack: stacks/projects/kj-pola-web-prod
+            gcp_project_id: kj-pola-web-prod
+          - stack: stacks/projects/kj-pola-backend-stg
+            gcp_project_id: kj-pola-backend-stg
+          - stack: stacks/projects/kj-pola-backend-prod
+            gcp_project_id: kj-pola-backend-prod
+          - stack: stacks/projects/kj-pola-shared-prod
+            gcp_project_id: kj-pola-shared-prod
+#          - stack: stacks/projects/pola-analytics-prod
+#            gcp_project_id: psychic-mason-449108-u3
+#          - stack: stacks/projects/pola-bi-looker
+#            gcp_project_id: pola-bi-looker
 
     steps:
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
 
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093
         with:
-          workload_identity_provider: projects/${{ env.GCP_PROJECT_ID }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: terraform-runner@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com
+          workload_identity_provider: projects/${{ matrix.gcp_project_id }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: terraform-runner@${{ matrix.gcp_project_id }}.iam.gserviceaccount.com
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
