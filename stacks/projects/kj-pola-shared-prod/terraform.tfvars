@@ -28,7 +28,7 @@ service_account_roles = [
   "kj-pola-shared-prod=>roles/iam.serviceAccountUser",
   "kj-pola-shared-prod=>roles/serviceusage.serviceUsageAdmin",
   "kj-pola-shared-prod=>roles/storage.objectAdmin",
-  "kj-pola-shared-prod=>roles/artifactregistry.writer"
+  "kj-pola-shared-prod=>roles/artifactregistry.admin"
 ]
 
 github_repository             = "KlubJagiellonski/pola-terraform"
