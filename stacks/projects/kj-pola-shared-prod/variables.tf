@@ -88,3 +88,9 @@ variable "terraform_runner_sa_name" {
   type        = string
   default     = "terraform-runner"
 }
+
+variable "docker_registry_repository_id" {
+  description = "ID repozytorium Docker w Artifact Registry"
+  type        = string
+  default     = "pola-backend"
+}
