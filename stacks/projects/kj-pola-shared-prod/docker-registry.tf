@@ -8,6 +8,4 @@ module "docker_registry" {
   repository_id = var.docker_registry_repository_id
 
   description = "Rejestr Docker dla obrazów kontenerowych Pola backend"
-
-  labels = var.labels
 }
