@@ -29,18 +29,25 @@ jobs:
         include:
           - stack: stacks/projects/kj-pola-web-stg
             gcp_project_id: kj-pola-web-stg
+            gcp_project_number: "345026739965"
           - stack: stacks/projects/kj-pola-web-prod
             gcp_project_id: kj-pola-web-prod
+            gcp_project_number: "288124577198"
           - stack: stacks/projects/kj-pola-backend-stg
             gcp_project_id: kj-pola-backend-stg
+            gcp_project_number: "901165314592"
           - stack: stacks/projects/kj-pola-backend-prod
             gcp_project_id: kj-pola-backend-prod
+            gcp_project_number: "306379713727"
           - stack: stacks/projects/kj-pola-shared-prod
             gcp_project_id: kj-pola-shared-prod
+            gcp_project_number: "802307596796"
 #          - stack: stacks/projects/pola-analytics-prod
 #            gcp_project_id: psychic-mason-449108-u3
+#            gcp_project_number: "248326328298"
 #          - stack: stacks/projects/pola-bi-looker
 #            gcp_project_id: pola-bi-looker
+#            gcp_project_number: "354540873199"
 
     steps:
       - name: Checkout
@@ -49,7 +56,7 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093
         with:
-          workload_identity_provider: projects/${{ matrix.gcp_project_id }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WORKLOAD_IDENTITY_PROVIDER }}
+          workload_identity_provider: projects/${{ matrix.gcp_project_number }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: terraform-runner@${{ matrix.gcp_project_id }}.iam.gserviceaccount.com
 
       - name: Set up Terraform
