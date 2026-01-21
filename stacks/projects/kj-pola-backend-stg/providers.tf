@@ -3,10 +3,10 @@ provider "google" {
   region  = var.region
 
   default_labels = {
-    org       = var.labels.org
-    app       = var.labels.app
-    iac       = var.labels.iac
-    component = var.labels.component
-    env       = var.labels.env
+    org       = var.name.org
+    app       = var.name.app
+    iac       = var.name.iac
+    component = var.name.component
+    env       = var.name.env
   }
 }

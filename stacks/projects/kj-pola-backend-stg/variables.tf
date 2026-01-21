@@ -22,10 +22,11 @@ variable "terraform_runner_sa_email" {
   default     = "terraform-runner"
 }
 
-variable "labels" {
+variable "name" {
   description = "Etykiety dla zasobów"
   type = object({
     org       = string
+    prefix    = string
     app       = string
     iac       = string
     component = string
@@ -33,6 +34,7 @@ variable "labels" {
   })
   default = {
     org       = "klubjagiellonski"
+    prefix    = "kj"
     app       = "pola"
     iac       = "terraform"
     component = "backend"
@@ -87,4 +89,22 @@ variable "terraform_runner_sa_name" {
   description = "Nazwa service account dla runnera Terraform"
   type        = string
   default     = "terraform-runner"
+}
+
+variable "vpc_subnet_cidr" {
+  description = "CIDR dla podsieci VPC."
+  type        = string
+  default     = "10.0.0.0/24"
+}
+
+variable "vpc_subnet_description" {
+  description = "Opis podsieci VPC"
+  type        = string
+  default     = "Subnet dla Cloud Run Direct VPC Egress i Cloud SQL"
+}
+
+variable "private_service_access_cidr" {
+  description = "CIDR dla Private Service Access"
+  type        = string
+  default     = "10.1.0.0/24"
 }
