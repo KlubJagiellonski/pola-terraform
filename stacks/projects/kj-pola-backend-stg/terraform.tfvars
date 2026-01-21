@@ -5,8 +5,9 @@ project_id      = "kj-pola-backend-stg"
 
 terraform_runner_sa_email = "terraform-runner"
 
-labels = {
+name = {
   org       = "klubjagiellonski"
+  prefix    = "kj"
   app       = "pola"
   iac       = "terraform"
   component = "backend"
@@ -22,7 +23,8 @@ activate_apis = [
   "storage.googleapis.com",
   "run.googleapis.com",
   "compute.googleapis.com",
-  "sqladmin.googleapis.com"
+  "sqladmin.googleapis.com",
+  "servicenetworking.googleapis.com"
 ]
 
 service_account_roles = [
@@ -33,10 +35,16 @@ service_account_roles = [
   "kj-pola-backend-stg=>roles/run.admin",
   "kj-pola-backend-stg=>roles/artifactregistry.reader",
   "kj-pola-backend-stg=>roles/serviceusage.serviceUsageAdmin",
-  "kj-pola-backend-stg=>roles/storage.objectAdmin"
+  "kj-pola-backend-stg=>roles/storage.objectAdmin",
+  "kj-pola-backend-stg=>roles/servicenetworking.networksAdmin"
 ]
 
 github_repository             = "KlubJagiellonski/pola-terraform"
 workload_identity_pool_id     = "github-actions-pool"
 workload_identity_provider_id = "github-actions-provider"
 terraform_runner_sa_name      = "terraform-runner"
+
+# VPC Networking Configuration
+vpc_subnet_cidr                = "10.0.0.0/24"
+vpc_subnet_description         = "Subnet dla Cloud Run Direct VPC Egress i Cloud SQL"
+private_service_access_cidr    = "10.1.0.0/24"
