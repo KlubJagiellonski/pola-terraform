@@ -9,7 +9,7 @@ module "cloudsql" {
   database_version = var.cloudsql_database_version
   tier             = var.cloudsql_tier
 
-  deletion_protection = true
+  deletion_protection = var.cloudsql_deletion_protection
 
   disk_type             = var.cloudsql_disk_type
   disk_size             = var.cloudsql_disk_size
