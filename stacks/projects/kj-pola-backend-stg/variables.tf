@@ -121,8 +121,14 @@ variable "cloudsql_database_version" {
   default     = "POSTGRES_15"
 }
 
+variable "cloudsql_deletion_protection" {
+  description = "Czy włączyć ochronę przed usunięciem instancji Cloud SQL"
+  type        = bool
+  default     = true
+}
+
 variable "cloudsql_disk_type" {
-  description = "Typ dysku dla Cloud SQL (PD_SSD lub PD_HDD)"
+  description = "Typ dysku dla Cloud SQL. Dostępne opcje: PD_SSD (zalecane dla większości przypadków, szybsze i bardziej przewidywalne), PD_HDD (dla dużych zbiorów danych >10TB, aplikacji niewrażliwych na opóźnienia)"
   type        = string
   default     = "PD_SSD"
 }
