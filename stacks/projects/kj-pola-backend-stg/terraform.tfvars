@@ -50,6 +50,7 @@ vpc_subnet_description      = "Subnet dla Cloud Run Direct VPC Egress i Cloud SQ
 private_service_access_cidr = "10.1.0.0/24"
 
 # Cloud SQL Configuration
+cloudsql_database_version                = "POSTGRES_15"
 cloudsql_tier                            = "db-f1-micro"
 cloudsql_disk_type                       = "PD_SSD"
 cloudsql_disk_size                       = 20

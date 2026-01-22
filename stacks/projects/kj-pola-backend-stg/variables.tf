@@ -115,6 +115,12 @@ variable "cloudsql_tier" {
   default     = "db-f1-micro"
 }
 
+variable "cloudsql_database_version" {
+  description = "Wersja bazy danych PostgreSQL (np. POSTGRES_15, POSTGRES_16)"
+  type        = string
+  default     = "POSTGRES_15"
+}
+
 variable "cloudsql_disk_type" {
   description = "Typ dysku dla Cloud SQL (PD_SSD lub PD_HDD)"
   type        = string

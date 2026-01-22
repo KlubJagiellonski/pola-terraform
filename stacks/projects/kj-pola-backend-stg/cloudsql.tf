@@ -6,7 +6,7 @@ module "cloudsql" {
   region     = var.region
   name       = "${var.name.app}-${var.name.component}-${var.name.env}-db"
 
-  database_version = "POSTGRES_16"
+  database_version = var.cloudsql_database_version
   tier             = var.cloudsql_tier
 
   deletion_protection = true
