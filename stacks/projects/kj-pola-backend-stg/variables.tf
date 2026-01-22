@@ -108,3 +108,75 @@ variable "private_service_access_cidr" {
   type        = string
   default     = "10.1.0.0/24"
 }
+
+variable "cloudsql_tier" {
+  description = "Typ maszyny Cloud SQL (np. db-f1-micro, db-n1-standard-1)"
+  type        = string
+  default     = "db-f1-micro"
+}
+
+variable "cloudsql_disk_type" {
+  description = "Typ dysku dla Cloud SQL (PD_SSD lub PD_HDD)"
+  type        = string
+  default     = "PD_SSD"
+}
+
+variable "cloudsql_disk_size" {
+  description = "Rozmiar dysku Cloud SQL w GB"
+  type        = number
+  default     = 20
+}
+
+variable "cloudsql_disk_autoresize" {
+  description = "Czy włączyć automatyczne zwiększanie rozmiaru dysku"
+  type        = bool
+  default     = true
+}
+
+variable "cloudsql_disk_autoresize_limit" {
+  description = "Maksymalny rozmiar dysku po automatycznym zwiększeniu w GB"
+  type        = number
+  default     = 60
+}
+
+variable "cloudsql_insights_enabled" {
+  description = "Czy włączyć Query Insights"
+  type        = bool
+  default     = true
+}
+
+variable "cloudsql_backup_enabled" {
+  description = "Czy włączyć kopie zapasowe"
+  type        = bool
+  default     = true
+}
+
+variable "cloudsql_backup_start_time" {
+  description = "Godzina rozpoczęcia kopii zapasowej (format HH:MM)"
+  type        = string
+  default     = "02:00"
+}
+
+variable "cloudsql_backup_retained_backups" {
+  description = "Liczba zachowanych kopii zapasowych"
+  type        = number
+  default     = 30
+}
+
+variable "cloudsql_maintenance_window_day" {
+  description = "Dzień tygodnia okna konserwacji (1-7, gdzie 1=Sunday)"
+  type        = number
+  default     = 1
+}
+
+variable "cloudsql_maintenance_window_hour" {
+  description = "Godzina okna konserwacji (0-23)"
+  type        = number
+  default     = 1
+}
+
+variable "cloudsql_maintenance_window_update_track" {
+  description = "Ścieżka aktualizacji okna konserwacji (stable/preview/any)"
+  type        = string
+  default     = "stable"
+}
