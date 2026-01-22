@@ -70,6 +70,16 @@ jobs:
         continue-on-error: true
         working-directory: ${{ matrix.stack }}
 
+      - name: Run Checkov with Reviewdog
+        id: checkov
+        uses: fulgas/reviewdog-action-checkov@8238124bf7d3262e05abcdd844ddf8f2fc4a0d3d # v2.3.0
+        if: github.event_name == 'pull_request'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          work_dir: ${{ matrix.stack }}
+          reporter: github-pr-review
+        continue-on-error: true
+
       - name: Terraform Init
         id: init
         run: terraform init -input=false
@@ -95,12 +105,26 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const getIcon = (outcome) => {
+              if (outcome === 'success') return '✅';
+              if (outcome === 'failure') return '❌';
+              if (outcome === 'cancelled') return '⚠️';
+              return '⏭️';
+            };
+            
+            const fmtOutcome = '${{ steps.fmt.outcome }}';
+            const checkovOutcome = '${{ steps.checkov.outcome }}';
+            const initOutcome = '${{ steps.init.outcome }}';
+            const validateOutcome = '${{ steps.validate.outcome }}';
+            const planOutcome = '${{ steps.plan.outcome }}';
+            
             const output = `### Project: ${{ matrix.gcp_project_id }}
 
-            #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            #### Terraform Format and Style 🖌 ${getIcon(fmtOutcome)}
+            #### Checkov Security Scan 🔒 ${getIcon(checkovOutcome)}
+            #### Terraform Initialization ⚙️ ${getIcon(initOutcome)}
+            #### Terraform Validation 🤖 ${getIcon(validateOutcome)}
+            #### Terraform Plan 📖 ${getIcon(planOutcome)}
 
             <details><summary>Show Plan</summary>
 
