@@ -192,3 +192,45 @@ variable "cloudsql_maintenance_window_update_track" {
   type        = string
   default     = "stable"
 }
+
+# Cloud Run Configuration
+variable "cloud_run_image" {
+  description = "Docker image URL for Cloud Run service"
+  type        = string
+  default     = "europe-central2-docker.pkg.dev/kj-pola-shared-prod/pola/pola-backend:latest"
+}
+
+variable "cloud_run_service_account_roles" {
+  description = "Lista ról IAM dla service account Cloud Run"
+  type        = list(string)
+  default = [
+    "roles/logging.logWriter",
+    "roles/monitoring.metricWriter",
+    "roles/cloudsql.client",
+    "roles/storage.objectAdmin",
+  ]
+}
+
+variable "cloud_run_min_instances" {
+  description = "Minimalna liczba instancji Cloud Run"
+  type        = number
+  default     = 0
+}
+
+variable "cloud_run_max_instances" {
+  description = "Maksymalna liczba instancji Cloud Run"
+  type        = number
+  default     = 1
+}
+
+variable "cloud_run_cpu_limit" {
+  description = "Limit CPU dla kontenera Cloud Run (np. 1000m)"
+  type        = string
+  default     = "1000m"
+}
+
+variable "cloud_run_memory_limit" {
+  description = "Limit pamięci dla kontenera Cloud Run (np. 512Mi)"
+  type        = string
+  default     = "512Mi"
+}
