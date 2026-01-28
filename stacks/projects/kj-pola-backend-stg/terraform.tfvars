@@ -64,3 +64,17 @@ cloudsql_backup_retained_backups         = 30
 cloudsql_maintenance_window_day          = 1
 cloudsql_maintenance_window_hour         = 1
 cloudsql_maintenance_window_update_track = "stable"
+
+# Cloud Run Configuration
+cloud_run_image = "europe-central2-docker.pkg.dev/kj-pola-shared-prod/pola/pola-backend:latest"
+cloud_run_service_account_roles = [
+  "roles/logging.logWriter",
+  "roles/monitoring.metricWriter",
+  "roles/cloudsql.client",
+  "roles/storage.objectAdmin",
+  "roles/artifactregistry.reader",
+]
+cloud_run_min_instances = 0
+cloud_run_max_instances = 1
+cloud_run_cpu_limit     = "1000m"
+cloud_run_memory_limit  = "512Mi"
