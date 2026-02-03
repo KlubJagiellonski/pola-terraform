@@ -75,6 +75,6 @@ cloud_run_service_account_roles = [
   "roles/artifactregistry.reader",
 ]
 cloud_run_min_instances = 0
-cloud_run_max_instances = 1
+cloud_run_max_instances = 2
 cloud_run_cpu_limit     = "1000m"
 cloud_run_memory_limit  = "512Mi"

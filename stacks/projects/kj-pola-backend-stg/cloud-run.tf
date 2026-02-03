@@ -1,3 +1,11 @@
+data "google_project" "current" {
+  project_id = var.project_id
+}
+
+locals {
+  cloud_run_service_account_name  = "${var.name.app}-${var.name.component}-${var.name.env}"
+}
+
 module "cloud_run" {
   source = "github.com/GoogleCloudPlatform/cloud-foundation-fabric//modules/cloud-run-v2?ref=v51.0.0"
 
@@ -27,14 +35,17 @@ module "cloud_run" {
   }
 
   service_account_config = {
+    name  = local.cloud_run_service_account_name
     roles = var.cloud_run_service_account_roles
   }
 
   # Terraform does the initial deployment only; CI/CD manages revisions after.
   managed_revision = false
+  deletion_protection = false
 
   service_config = {
     ingress = "INGRESS_TRAFFIC_ALL"
+    invoker_iam_disabled = true
     scaling = {
       min_instance_count = var.cloud_run_min_instances
       max_instance_count = var.cloud_run_max_instances
@@ -49,12 +60,12 @@ module "cloud_run" {
 
 # Grant Cloud Run service account permission to read from Artifact Registry in shared project
 # This is needed because the Docker image is in kj-pola-shared-prod project
-resource "google_project_iam_member" "cloud_run_sa_artifact_registry_reader" {
+resource "google_project_iam_member" "cloud_run_service_agent_artifact_registry_reader" {
   project = "kj-pola-shared-prod"
   role    = "roles/artifactregistry.reader"
-  member  = "serviceAccount:${module.cloud_run.service_account_email}"
+  member  = "serviceAccount:service-${data.google_project.current.number}@serverless-robot-prod.iam.gserviceaccount.com"
 
   depends_on = [
-    module.cloud_run
+    module.project_services
   ]
 }
