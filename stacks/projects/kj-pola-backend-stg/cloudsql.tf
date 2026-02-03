@@ -22,6 +22,10 @@ module "cloudsql" {
       value = "on"
     },
     {
+      name  = "cloudsql.iam_authentication"
+      value = "on"
+    },
+    {
       name  = "timezone"
       value = "Europe/Warsaw"
     }
@@ -54,6 +58,22 @@ module "cloudsql" {
   maintenance_window_day          = var.cloudsql_maintenance_window_day
   maintenance_window_hour         = var.cloudsql_maintenance_window_hour
   maintenance_window_update_track = var.cloudsql_maintenance_window_update_track
+
+  additional_databases = [
+    {
+      name      = "pola"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
+    }
+  ]
+
+  iam_users = [
+    {
+      id    = "pola"
+      email = "${var.name.app}-${var.name.component}-${var.name.env}@${var.project_id}.iam.gserviceaccount.com"
+      type  = "CLOUD_IAM_SERVICE_ACCOUNT"
+    }
+  ]
 
   depends_on = [
     module.vpc

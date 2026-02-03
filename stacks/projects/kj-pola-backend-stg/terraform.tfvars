@@ -52,7 +52,7 @@ private_service_access_cidr = "10.1.0.0/24"
 # Cloud SQL Configuration
 cloudsql_database_version                = "POSTGRES_15"
 cloudsql_tier                            = "db-f1-micro"
-cloudsql_deletion_protection             = false
+cloudsql_deletion_protection             = true
 cloudsql_disk_type                       = "PD_SSD"
 cloudsql_disk_size                       = 10
 cloudsql_disk_autoresize                 = true
@@ -75,6 +75,6 @@ cloud_run_service_account_roles = [
   "roles/artifactregistry.reader",
 ]
 cloud_run_min_instances = 0
-cloud_run_max_instances = 1
+cloud_run_max_instances = 2
 cloud_run_cpu_limit     = "1000m"
 cloud_run_memory_limit  = "512Mi"
