@@ -59,7 +59,7 @@ module "cloudsql" {
   maintenance_window_hour         = var.cloudsql_maintenance_window_hour
   maintenance_window_update_track = var.cloudsql_maintenance_window_update_track
 
-  databases = [
+  additional_databases = [
     {
       name      = "pola"
       charset   = "UTF8"

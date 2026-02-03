@@ -52,7 +52,7 @@ private_service_access_cidr = "10.1.0.0/24"
 # Cloud SQL Configuration
 cloudsql_database_version                = "POSTGRES_15"
 cloudsql_tier                            = "db-f1-micro"
-cloudsql_deletion_protection             = false
+cloudsql_deletion_protection             = true
 cloudsql_disk_type                       = "PD_SSD"
 cloudsql_disk_size                       = 10
 cloudsql_disk_autoresize                 = true
